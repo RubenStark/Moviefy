@@ -1,0 +1,160 @@
+{% extends 'main.html' %}
+{% block content %}
+
+
+<!--
+<div class="body-ui">
+<main class="formPage my-xl">
+    <div class="content-box-ui">
+        <div class="formWrapper-ui">
+            <form class="form-ui" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="form__field">
+                    <label for="formInput#text">{{field.label}}</label>
+                    {{field}}
+                </div>
+                {% endfor %}
+
+                <div class="form__field">
+                    {% for tag in project.tags.all %}
+                    <div class="project-tag tag tag--pill tag--main" data-tag="{{tag.id}}"
+                        data-project="{{project.id}}">{{tag.name}} &#215;</div>
+                    {% endfor %}
+                </div>
+
+                <div class="form__field">
+                    <label for="formInput#text">Tags</label>
+                    <textarea class="input" name="newtags" placeholder="Add tags here..."></textarea>
+                </div>
+                <input class="btn-ui btn--sub-ui btn--lg  my-md" type="submit" value="Submit" />
+            </form>
+        </div>
+    </div>
+</main>
+</div>
+-->
+
+
+<!-- MainContent -->
+<section class="m-profile setting-wrapper">        
+    <div class="container">
+        <h4 class="main-title mb-4">Account</h4>
+        <div class="row">
+            <div class="col-lg-4 mb-3">
+                <div class="sign-user_card text-center">
+
+                    <h4 class="mb-3">Edit Your Account</h4>
+                    <img src="{{profile.imageURL}}" class="rounded-circle img-fluid d-block mx-auto mb-3" alt="user">
+                    <h4 class="mb-3">{{profile.name}}</h4>
+
+                    <a href="{% url 'edit-account' %}" class="edit-icon text-primary">Edit</a>
+
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <form class="form-ui" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                <div class="sign-user_card">
+                    <h5 class="mb-3 pb-3 a-border">Account Details</h5>
+                    <div class="row align-items-center justify-content-between mb-3">
+                        <div class="col-md-8">
+                            <span class="text-light font-size-13">Name</span>
+                            <p class="mb-0">{{form.name}}</p>
+                        </div>
+                        <div class="col-md-8">
+                            <span class="text-light font-size-13">Username</span>
+                            <p class="mb-0">{{form.username}}</p>
+                        </div>
+                        <div class="col-md-8">
+                            <span class="text-light font-size-13">Email</span>
+                            <p class="mb-0">{{form.email}}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="row align-items-center justify-content-between mb-3">
+                        <div class="col-md-8">
+                            <span class="text-light font-size-13">Password</span>
+                            <p class="mb-0">**********</p>
+                        </div>
+                        <div class="col-md-4 text-md-right text-left">
+                            <a href="{% url 'reset_password' %}" class="text-primary">Change</a>
+                        </div>
+                    </div>
+
+                    <h5 class="mb-3 pb-3 a-border">Personal Details</h5>
+                    <div class="row align-items-center justify-content-between mb-3">
+                        <div class="col-md-8">
+                            <span class="text-light font-size-13">Location</span>
+                            <p class="mb-0">{{form.location}}</p>
+                        </div>
+                        <div class="col-md-8">
+                            <span class="text-light font-size-13">Biography</span>
+                            <p class="mb-0">{{form.bio}}</p>
+                        </div>
+                        <div class="col-md-8">
+                            <span class="text-light font-size-13">Short Intro</span>
+                            <p class="mb-0">{{form.short_intro}}</p>
+                        </div>
+                        <div class="col-md-8">
+                            <span class="text-light font-size-13">Profile Image</span>
+                            <p class="mb-0">{{form.profile_image}}</p>
+                        </div>
+                    </div>
+
+                    <h5 class="mb-3 pb-3 a-border">Contact Details</h5>
+                    <div class="row align-items-center justify-content-between mb-3">
+                        <div class="col-md-8">
+                            <span class="text-light font-size-13">Personal Website</span>
+                            <p class="mb-0">{{form.social_website}}</p>
+                        </div>
+                        <div class="col-md-8">
+                            <span class="text-light font-size-13">Tik Tok</span>
+                            <p class="mb-0">{{form.social_tiktok}}</p>
+                        </div>
+                        <div class="col-md-8">
+                            <span class="text-light font-size-13">Youtube</span>
+                            <p class="mb-0">{{form.social_youtube}}</p>
+                        </div>
+                        <div class="col-md-8">
+                            <span class="text-light font-size-13">Instagram</span>
+                            <p class="mb-0">{{form.social_insta}}</p>
+                        </div>
+                        <div class="col-md-8">
+                            <span class="text-light font-size-13">Twitter</span>
+                            <p class="mb-0">{{form.social_twitter}}</p>
+                        </div>
+                    </div>
+
+                    <h5 class="mb-3 pb-3 a-border">Add Skills</h5>
+                    <div class="row align-items-center justify-content-between mb-3">
+                        <div class="col-md-8">
+                            <div class="form__field">
+                                <a href="{% url 'create-skill' %}">Add Skill</a>
+                            </div>
+                        </div>
+                    </div>
+                    <input class="btn btn-hover" type="submit" value="Update Profile" />
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="rtl-box">
+  <button type="button" class="btn btn-light rtl-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 20 20" fill="white">
+        <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+        </svg>
+  </button>
+  <div class="rtl-panel">
+     <ul class="modes">
+        <li class="dir-btn"  data-mode="rtl" data-active="false" data-value="ltr"><a href="#">LTR</a></li>
+        <li class="dir-btn" data-mode="rtl" data-active="true"   data-value="rtl"><a href="#">RTL</a></li>
+     </ul>
+  </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,224 @@
+{% extends 'main3.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+   progress {
+   width: 100%;
+   }
+</style>
+<!-- MainContent -->
+<div class="main-content">
+   <div class="show-movie">
+      <div class="container-fluid">
+         <div class="banner-wrapper overlay-wrapper iq-main-slider" style="background-image: url('{{ serie.imageURL }}');">
+            <div class="banner-caption">
+               <div class="movie-detail">
+                  <div class="row">
+                     <div class="col-lg-12">
+                        <div class="trending-info p-0">
+                           <h1 class="trending-text big-title text-uppercase mt-0">{{serie.title}}</h1>
+                           <div class="slider-ratting d-flex align-items-center" data-animation-in="fadeInLeft">
+                              <ul class="ratting-start p-0 m-0 list-inline text-primary d-flex align-items-center justify-content-left">
+                                 {% include 'projects/stars/seriestars.html' %}
+                              </ul>
+                              <span class="text-white ml-3">{{serie.vote_ratio}}%</span>
+                           </div>
+                           <ul class="p-0 mt-2 list-inline d-flex flex-wrap movie-content">
+                              {% for tag in serie.tags.all|slice:":3" %}
+                              <li class="trending-list"><a class="text-primary title" href="{% url 'genre' tag %}">{{ tag|title }}</a></li>
+                              {% endfor %}
+                              
+                        </ul>
+                           <div class="d-flex flex-wrap align-items-center text-white text-detail sesson-date">
+                              <span class="">
+                                 {{serie.duration}}
+                              </span>
+                              <span class="trending-year">{{serie.created|date:"F Y"}}</span>
+                           </div>
+                           <div class="trending-dec">
+                              <p class="m-0">{{serie.description}}</p>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="position-relative">
+                  <a href="{% url 'episode' currentEpisode %}" class="d-flex align-items-center">
+                     <div class="play-button">
+                        <i class="ri-play-fill"></i>
+                     </div>
+                     <h4 class="w-name text-white font-weight-700">Watch latest Episode</h4>
+                  </a>
+               </div>
+               <div class="row">
+                  <div class="col-12 mt-auto mb-auto">
+                     <ul class="list-inline p-0 m-0 share-icons music-play-lists">
+                        <li class="share mb-0">
+                           <span><i class="ri-share-fill"></i></span>
+                           <div class="share-box">
+                              <div class="d-flex align-items-center">
+                                 <a href="#" class="share-ico"><i class="ri-facebook-fill"></i></a>
+                                 <a href="#" class="share-ico"><i class="ri-twitter-fill"></i></a>
+                                 <a href="#" class="share-ico"><i class="ri-links-fill"></i></a>
+                              </div>
+                           </div>
+                        </li>
+                        <li class="mb-0">
+                           <span><i class="ri-heart-fill"></i></span>
+                        </li>
+                        <li class="mb-0">
+                           <span><i class="ri-add-line"></i></span>
+                        </li>
+                     </ul>
+                     <ul class="p-0 list-inline d-flex flex-wrap align-items-center movie-content movie-space-action flex-wrap iq_tag-list">
+                        <li class="text-primary text-lable"><i class="fa fa-tags font-Weight-900"
+                              aria-hidden="true"></i>TAGS:</li>
+                           {% for tag in serie.tags.all|slice:"3:10" %}
+                              <li><a class="tag-list" href="{% url 'genre' tag %}">{{ tag|title }}</a></li>
+                           {% endfor %}
+                        
+                     </ul>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+         <section class="show-movie-section">
+
+            <div class="trending-custom-tab">
+               <div class="tab-title-info position-relative">
+                  <ul class="trending-pills nav nav-pills text-center iq-ltr-direction" role="tablist">
+                     {% for season in seasons %}
+                        {% if season == '1' %}
+                        <li class="nav-item">
+                           <a class="nav-link active show m-0" data-toggle="pill" href="#season{{season}}" role="tab"
+                              aria-selected="true">SEASON {{season}}</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                           <a class="nav-link  m-0" data-toggle="pill" href="#season{{season}}" role="tab"
+                              aria-selected="false">SEASON {{season}}</a>
+                        </li>
+                        {% endif %}
+                     {% endfor %}
+                  </ul>
+               </div>
+
+               <div class="tab-content" id="nav-tabContent">
+                  {% for season in seasons %}
+                  {% if season == '1' %}
+                  <div id="season{{season}}" class=" tab-pane animated fadeInUp active show">
+                     <div class="row episodes list-inline p-0 mb-0 iq-rtl-direction ">
+                        {% for episode in episodes %}
+                        {% if episode.season == season %}
+                        <div class="e-item col-lg-3 col-sm-12 col-md-6">
+                           <div class="block-image position-relative">
+                              <a href="{% url 'episode' episode.id %}">
+                                 <img src="{{episode.imageURL}}" class="img-fluid img-zoom" alt="" loading="lazy">
+                              </a>
+                              <div class="episode-number">S{{season}}E{{episode.number}}</div>
+                              <div class="episode-play-info">
+                                 <div class="episode-play">
+                                    <a
+                                       href="{% url 'episode' episode.id %}">
+                                       <i class="ri-play-fill"></i>
+                                    </a>
+                                 </div>
+                              </div>
+                           </div>
+                           
+                           {% for i in watchedEpisodes %}
+                           {% if episode == i.episode %}
+                           <progress id="file" max="100" value="{{i.progress}}"></progress>
+                           {% endif %}
+                           {% endfor %}
+                           
+
+                           <div class="epi-desc p-3">
+                              <div class="d-flex align-items-center justify-content-between mb-3">
+                                 <span class="text-white rel-date">{{episode.created|date:"M d Y"}}</span>
+                                 <span class="text-primary run-time">{{episode.duration}}</span>
+                              </div>
+                              <a
+                                 href="{% url 'episode' episode.id %}">
+                                 <h5 class="epi-name text-white mb-0">
+                                    {{episode.name}}</h5>
+                              </a>
+                           </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                     </div>
+                  </div>
+
+                  {% else %}
+
+                  <div id="season{{season}}" class="tab-pane animated fadeInUp">
+                     <div class="row episodes list-inline p-0 mb-0 iq-rtl-direction">
+                        {% for episode in episodes %}
+                        {% if episode.season == season %}
+                        <div class="e-item col-lg-3 col-sm-12 col-md-6">
+                           <div class="block-image position-relative">
+                              <a href="{% url 'episode' episode.id %}">
+                                 <img src="{{episode.imageURL}}" class="img-fluid img-zoom" alt="" loading="lazy">
+                              </a>
+                              <div class="episode-number">S{{season}}E{{episode.number}}</div>
+                              <div class="episode-play-info">
+                                 <div class="episode-play">
+                                    <a href="{% url 'episode' episode.id %}">
+                                       <i class="ri-play-fill"></i>
+                                    </a>
+                                 </div>
+                              </div>
+                           </div>
+                           <!--Check if episode is in watchedEpisodes-->
+                           
+                           {% for i in watchedEpisodes %}
+                           {% if episode == i.episode %}
+                           <progress id="file" max="100" value="{{i.progress}}"></progress>
+                           {% endif %}
+                           {% endfor %}
+                           
+                           <div class="epi-desc p-3">
+                              <div class="d-flex align-items-center justify-content-between mb-3">
+                                 <span class="text-white rel-date">October 1, 2020</span>
+                                 <span class="text-primary run-time">45min</span>
+                              </div>
+                              <a
+                                 href="{% url 'episode' episode.id %}">
+                                 <h5 class="epi-name text-white mb-0">
+                                    {{episode.name}} </h5>
+                              </a>
+                           </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                     </div>
+                  </div>
+                  {% endif %}
+                  {% endfor %}
+               </div>
+            </div>
+         </section>
+         
+      </div>
+   </div>
+</div>
+<div class="rtl-box">
+   <button type="button" id="flip" class="btn btn-light rtl-btn">
+      <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 20 20" fill="white">
+         <path fill-rule="evenodd"
+            d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
+            clip-rule="evenodd" />
+      </svg>
+   </button>
+   <div class="rtl-panel" id="panel">
+      <ul class="modes">
+         <li class="dir-btn" data-mode="rtl" data-active="false" data-value="ltr"><a href="#">LTR</a></li>
+         <li class="dir-btn" data-mode="rtl" data-active="true" data-value="rtl"><a href="#">RTL</a></li>
+      </ul>
+   </div>
+</div>
+
+{% endblock %}

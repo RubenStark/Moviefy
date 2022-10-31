@@ -1,0 +1,80 @@
+{% extends 'main.html' %}
+
+{% block content %}
+{% load static %}
+<style>
+    .iq-card-body { padding: 15px; }
+    
+</style>
+
+<!-- Main Section -->
+
+<div class="iq-breadcrumb-one  iq-bg-over iq-over-dark-50" style="background-image: url(../html/images/about-us/01.jpg);">  
+    <div class="container-fluid"> 
+        <div class="row align-items-center">
+            <div class="col-sm-12">
+                <nav aria-label="breadcrumb" class="text-center iq-breadcrumb-two">
+                    <h2 class="title">SEACRH FOR <strong class="text-primary">MOVIES</strong>
+                </nav>
+                <form id="searchForm" action="{% url 'projectsSearch' %}" method="get">
+                    <div class="form-group">
+                        <input class="text search-input" id="formInput#search" type="text" name="search_query" value="" placeholder="Search">
+                     </div>
+                </form>
+            </div>
+        </div> 
+    </div>
+</div>
+
+
+<main id="main" class="site-main">
+    <div class="container">
+        <div class="row">
+            {% for project in projects %}
+            <div class="col-sm-4">
+               <div class="iq-card iq-card-block iq-card-stretch iq-card-height iq-mb-3">
+                   <a href="{% url 'projectDetails' project.id %}">
+                  <img src="{{project.imageURL}}" class="card-img-top profile-card" alt="Profile Image">
+                </a>
+                  <div class="iq-card-body" style="background-color: rgb(24, 24, 24);"> <br>
+                     <h4 class="card-title">{{project.title}}</h4>
+                     <h6 class="iq-title">By <a href="{% url 'user-profile' project.owner.id %}">{{project.owner.name}}</a></h6>
+                     <br>
+                     <div class="badge badge-secondary p-1 mr-2">{{project.movie_restriction}}</div>
+                     <span class="text-white">{{project.movie_duration}}</span>
+                     <br> <br>
+                     <p class="card-text">
+                        <span style="font-weight: bold;">{{project.vote_ratio}}%</span> Positive
+                        Feedback ({{project.vote_total}}) Vote{{project.vote_total|pluralize:"s"}}
+                    </p>
+                     {% for tag in project.tags.all %}
+                     <span class="badge badge-primary">{{tag}}</span>
+                     {% endfor %}
+                  </div>
+               </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+
+<div id="content-page" class="content-page">
+    <div class="container-fluid">
+       <div class="row">
+          <div class="col-lg-12">
+             <div class="iq-card">
+                <div class="iq-card-body">
+                    {% include 'pagination.html' with queryset=projects custom_range=custom_range %}
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>
+</div>
+
+                
+
+
+
+{% endblock content %}

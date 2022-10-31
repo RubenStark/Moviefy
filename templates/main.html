@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en-US">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Moviefy</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'styles/bootstrap.min.css' %}" />
+    <!-- Typography CSS -->
+    <link rel="stylesheet" href="{% static 'styles/typography.css' %}" />
+    <!-- Style -->
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}" />
+    <!-- Responsive -->
+    <link rel="stylesheet" href="{% static 'styles/responsive.css' %}" />
+</head>
+<script src="https://kit.fontawesome.com/99b38e9d14.js" crossorigin="anonymous"></script>
+   <body>
+        
+        {% include 'navbar.html' %}
+
+
+        {% block content %}
+
+        {% endblock content %}
+
+        {% include 'footer.html' %}
+
+    </body>
+   <!-- jQuery, Popper JS -->
+
+   <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+
+   <script src="{% static 'js/popper.min.js' %}"></script>
+   <!-- Bootstrap JS -->
+
+   <script src="{% static 'js/bootstrap.min.js' %}"></script>
+   <!-- Slick JS -->
+
+   <script src="{% static 'js/slick.min.js' %}"></script>
+   <!-- owl carousel Js -->
+
+   <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+   <!-- select2 Js -->
+
+   <script src="{% static 'js/select2.min.js' %}"></script>
+   <!-- Magnific Popup-->
+
+   <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+   <!-- Slick Animation-->
+
+   <script src="{% static 'js/slick-animation.min.js' %}"></script>
+   <!-- Custom JS-->
+
+   <script src="{% static 'js/custom.js' %}"></script>
+    <!-- rtl -->
+
+    <script src="{% static 'js/rtl.js' %}"></script>
+    
+   </body>
+</html>

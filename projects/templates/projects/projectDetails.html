@@ -1,0 +1,485 @@
+{% extends 'main3.html' %}
+{% load static %}
+{% load embed_video_tags %}
+{% block content %}
+
+{% if project.link %}
+   {% video project.link as my_video %}
+
+
+         {% video my_video 'medium' %}
+
+
+   {% endvideo %}
+{% else %}
+
+<style>
+   .slide {
+      background-image: url("{{ project.imageURL }}");    
+   }
+   
+</style>
+
+<section id="home-banner-slider" class="iq-main-slider p-0 iq-rtl-direction swiper banner-home-swiper overflow-hidden" data-swiper="home-banner-slider">
+   <div class="slider m-0 p-0 swiper-wrapper home-slider">
+      <div class="swiper-slide slide swiper-bg">
+         <div class="container-fluid position-relative h-100">
+            <div class="slider-inner h-100">
+               <div class="row align-items-center iq-ltr-direction h-100 ">
+                  <div class="col-lg-7 col-md-12">
+                     <a href="javascript:void(0);">
+                        <div class="channel-logo" data-animation-in="fadeInLeft" data-delay-in="0.5">
+                           <img src="{% static 'images/logo.png' %}" class="c-logo" alt="Moviefy">
+                        </div>
+                     </a>
+                     <!-------------------------------------------------------------------------->
+                     <h1 class="slider-text big-title title text-uppercase" data-animation-in="fadeInLeft"
+                        data-delay-in="0.6">{{project.title}}</h1>
+                        <div class="d-flex flex-wrap align-items-center fadeInLeft animated" data-animation-in="fadeInLeft" style="opacity: 1;">
+                          <div class="slider-ratting d-flex align-items-center mr-4 mt-2 mt-md-3">
+                              <ul class="ratting-start p-0 m-0 list-inline text-primary d-flex align-items-center justify-content-left">
+                                 {% include 'projects/stars/stars.html' %}
+                              </ul>
+                              <span class="text-white ml-2">{{project.vote_ratio}}% Positive Feedback ({{project.vote_total}}
+                                 Vote{{project.vote_total|pluralize:"s"}})
+                              </span>
+                              </div>
+                              <div class="d-flex align-items-center mt-2 mt-md-3">
+                                 <span class="badge badge-secondary p-2">{{project.movie_restriction}}</span>
+                              </div>
+                              <br>
+                      </div>
+
+                     <!-- <div class="d-flex align-items-center" data-animation-in="fadeInUp" data-delay-in="1">
+                         
+                        <span class="badge badge-secondary p-2">18+</span>
+                        <span class="ml-3">2 Seasons</span>
+                     </div> -->
+                     <p data-animation-in="fadeInUp" data-delay-in="1.2">
+                        {{project.description}}
+                     </p>
+                     <div class="trending-list" data-wp_object-in="fadeInUp" data-delay-in="1.2">
+                      <div class="text-primary title genres">
+                          Genre: <span class="text-body">{{project.genre}}</span>
+                      </div>
+                      <div class="text-primary title tag">
+                          Tags: 
+                          <span class="text-body">
+                           {% for tag in project.tags.all %}
+                           {{tag}}
+                           {% endfor %}
+                          </span>
+                      </div>
+                  </div>
+                  <div class="d-flex align-items-center r-mb-23" data-animation-in="fadeInUp" data-delay-in="1">
+                     <a href="{% url 'project' project.id %}" class="btn btn-hover iq-button"><i class="fa fa-play mr-2"
+                        aria-hidden="true"></i>Play Now</a>
+                  </div>
+               </div> 
+               <div class="col-xl-5 col-lg-12 col-md-12 trailor-video  text-center">
+                  <a href="{% static 'video/trailer.mp4' %}" class="video-open playbtn">
+                     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                        x="0px" y="0px" width="80px" height="80px" viewBox="0 0 213.7 213.7"
+                        enable-background="new 0 0 213.7 213.7" xml:space="preserve">
+                        <polygon class='triangle' fill="none" stroke-width="7" stroke-linecap="round"
+                           stroke-linejoin="round" stroke-miterlimit="10"
+                           points="73.5,62.5 148.5,105.8 73.5,149.1 " />
+                        <circle class='circle' fill="none" stroke-width="7" stroke-linecap="round"
+                           stroke-linejoin="round" stroke-miterlimit="10" cx="106.8" cy="106.8" r="103.3" />
+                     </svg>
+                     <span class="w-trailor">Watch Trailer</span>
+                  </a>
+               </div>
+            </div>
+         </div>
+         <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+            <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" width="44px" height="44px" id="circle"
+               fill="none" stroke="currentColor">
+               <circle r="20" cy="22" cx="22" id="test"></circle>
+            </symbol>
+         </svg>
+      </div>
+</section>
+
+{% endif %}
+<!-- Banner End -->
+
+<!-- MainContent -->
+
+<div class="main-content movi ">
+   <div class="container-fluid">
+      <div class="row">
+         <div class="col-lg-12">
+            <div class="trending-info mt-4 pt-0 pb-4">
+               <div class="row">
+                  <div class="col-md-9 col-12  mb-auto">
+                     <div class="d-md-flex">
+                     </div>
+                     <div class="d-flex flex-wrap align-items-center text-white text-detail flex-wrap mb-4">
+                        <span class="badge badge-secondary font-size-16">{{project.movie_restriction}}</span>
+                        <span class="ml-3 font-Weight-500 genres-info">{{project.duration}}</span>
+                        <span class="trending-year trending-year-list font-Weight-500 genres-info">
+                           <!--get the monthn and year-->
+                           {{project.created|date:"F Y"}}
+                        </span>
+                        <span
+                           class="trending-year trending-year-list single-view-count font-Weight-500 genres-info"><i
+                              class="fa fa-eye"></i>{{project.movie_views}} Views</span>
+                     </div>
+                     <ul class="list-inline p-0 m-0 share-icons music-play-lists mb-1">
+                        <li class="share">
+                           <span><i class="ri-share-fill"></i></span>
+                           <div class="share-box">
+                              <div class="d-flex align-items-center">
+                                 <a href="#" class="share-ico"><i class="ri-facebook-fill"></i></a>
+                                 <a href="#" class="share-ico"><i class="ri-twitter-fill"></i></a>
+                                 <a href="#" class="share-ico"><i class="ri-links-fill"></i></a>
+                              </div>
+                           </div>
+                        </li>
+                        <a href="#rate">
+                        <li><span><i class="ri-heart-fill"></i></span></li>
+                        </a>
+                        <li><span><i class="ri-add-line" value="{{project.id}}"></i></span></li>
+                     </ul>
+                     <ul class="p-0 list-inline d-flex flex-wrap align-items-center mb-3 mt-4 iq_tag-list">
+                        <li class="text-primary text-lable mr-3"><i class="fa fa-tags" aria-hidden="true"></i>Tags:
+                        </li>
+                        {% for tag in project.tags.all %}
+                        <li class="trending-list mr-3"><a class="title" href="{% url 'genre' tag %}">{{tag|title}}</a></li>
+                        {% endfor %}
+                     </ul>
+                     <!--Create a button tu subscribe-->
+                     {% if request.user.is_authenticated %}
+                     <form action="{% url 'subscribe' project.id %}" method="post">
+                        {% csrf_token %}
+                        <p class="form-submit">
+                           <!--get if the user is already subscribed-->
+                           {% if subscribed %}
+                           <button type="submit" class="btn btn-hover iq-button">
+                              <i class="fa fa-check"></i> Subscribed
+                           </button>
+                           {% else %}
+                           <button name="submit" type="submit" id="submit"
+                              class="btn btn-hover iq-button" value="Submit">
+                              <span>Subscribe</span>
+                           </button>
+                           {% endif %}
+                        </p>
+                     </form>
+                     {% else %}
+                     <a href="{% url 'login' %}">
+                     <button name="submit" type="submit" id="submit"
+                              class="btn btn-hover iq-button" value="Submit">
+                        <span>Subscribe</span>
+                     </button>
+                     </a>
+                     {% endif %}
+                  </div>
+               </div>
+            </div>
+            <div id="rate" class="streamit-content-details trending-info g-border iq-rtl-direction">
+               <ul class="trending-pills-header d-flex nav nav-pills align-items-center text-center  mb-5 justify-content-center"
+                  role="tablist">
+                  <li class="nav-item">
+                     <a class="nav-link active show" data-toggle="pill" href="#dectripton-1" role="tab"
+                        aria-selected="true">Related Movies</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" data-toggle="pill" href="#reviw-1" role="tab" aria-selected="false">Rate
+                        &amp; Review</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" data-toggle="pill" href="#sourse-1" role="tab"
+                        aria-selected="false">Donate</a>
+                  </li>
+               </ul>
+
+               <div class="tab-content">
+                  <div id="dectripton-1" class="tab-pane fade active show" role="tabpanel">
+                     <div class="description-content">
+                        <div class="container-fluid">
+                           <ul class=" row list-inline  mb-0 iq-rtl-direction ">
+                            {% for project in similar_movies %}
+                              <li class="slide-item col-lg-3 col-md-4 col-6 mb-4">
+                                 <div class="block-images position-relative  watchlist-first">
+                                    <div class="img-box">
+                                       <img src="{{project.imageURL}}" class="img-fluid" alt="" loading="lazy">
+                                    </div>
+                                    <div class="block-description">
+                                       <h6 class="iq-title text-left"><a href="{% url 'projectDetails' project.id %}">{{project.title}}</a></h6>
+                                       <div class="movie-time d-flex align-items-center my-2">
+                                          <span class="text-white">{{project.duration}}</span>
+                                       </div>
+                                       <div class="hover-buttons text-left">
+                                          <a href="{% url 'project' project.id %}" role="button" class="btn btn-hover"><i class="fa fa-play mr-1" aria-hidden="true"></i>
+                                             Play Now</a>
+                                       </div>
+                                    </div>
+                                    <div class="block-social-info">
+                                       <ul class="list-inline p-0 m-0 music-play-lists">
+                                          <li class="share">
+                                             <span><i class="ri-share-fill"></i></span>
+                                             <div class="share-box">
+                                                <div class="d-flex align-items-center">
+                                                   <a href="https://www.facebook.com/sharer?u=https://iqonic.design/wp-themes/streamit_wp/movie/shadow/" target="_blank" rel="noopener noreferrer" class="share-ico" tabindex="0"><i class="ri-facebook-fill"></i></a>
+                                                   <a href="https://twitter.com/intent/tweet?text=Currentlyreading" target="_blank" rel="noopener noreferrer" class="share-ico" tabindex="0"><i class="ri-twitter-fill"></i></a>
+                                                   <a href="#" data-link="https://iqonic.design/wp-themes/streamit_wp/movie/shadow/" class="share-ico iq-copy-link" tabindex="0"><i class="ri-links-fill"></i></a>
+                                                </div>
+                                             </div>
+                                          </li>
+                                          <li>
+                                             <span><i class="ri-heart-fill"></i></span>
+                                             <span class="count-box">+3</span>
+                                          </li>
+                                          <li><span><i class="ri-add-line" value="{{project.id}}"></i></span></li>
+                                       </ul>
+                                    </div>
+                                 </div>
+                              </li>
+                            {% endfor %}
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+                  
+                  <div id="reviw-1" class="tab-pane fade" role="tabpanel">
+                     <div id="reviews" class="streamit-reviews">
+                        <div id="comments" class="comments-area validate-form">
+                           {% if reviews_exist == False %}
+                           <p class="masvideos-noreviews mt-3">
+                              There are no reviews yet.
+                           </p>
+                           {% endif %}
+                           
+                           {% if request.user.profile.id in project.reviewers %}
+                           <p class="masvideos-noreviews mt-3">
+                              You have already submitted your review for this project
+                           </p>
+                           {% for review in project.review_set.all %}
+                           {% if review.owner.id == request.user.profile.id %}
+                           {% if review.body %}
+                           <p class="masvideos-noreviews mt-3">
+                              <ul class="iq-post">
+                                 <li>
+                                    <blockquote class="wp-block-quote">
+                                       <p>{{review.body|linebreaksbr}}</p>
+                                       <br>
+                                       <div class="iq-blog-meta">
+                                          <ul class="list-inline">
+                                             <li class="list-inline-item">
+                                                <a href="{% url 'user-profile' review.owner.id  %}" class="iq-user"><i class="fa fa-user-o mr-1" aria-hidden="true"></i>
+                                                   {% if review.owner.name %}
+                                                   {{review.owner.name}}                                      
+                                                   {% else %}
+                                                   {{review.owner.username}}
+                                                   {% endif %}
+                                                </a>
+                                                {% if review.value == 'up' %}
+                                                <span class="fa fa-heart" style="padding-left:5px;"></span>
+                                                {% elif review.value == 'down' %}
+                                                <span class="fa fa-thumbs-down" style="padding-left:5px;"></span>
+                                                {% endif %}
+                                             </li>
+                                          </ul>
+                                       </div>
+                                    </blockquote>
+                                </li>
+                              </ul>
+                           </p>
+                           {% endif %}
+                           {% endif %}
+                           {% endfor %}  
+                  
+                           {% elif request.user.profile == project.owner %}
+                           <p class="masvideos-noreviews mt-3">You can not review your own work</p>
+                           {% elif request.user.is_authenticated %}
+                        <div id="review_form_wrapper">
+                           <div id="review_form">
+                              <div id="respond" class="comment-respond">
+                                 {% if reviews_exist == False %}
+                                 <h3 id="reply-title" class="comment-reply-title mt-0">
+                                    Be the first to review “{{project.title}}”
+                                 </h3>
+                                 {% endif %}
+                  
+                                 <form class="comment-form" action="{% url 'projectDetails' project.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <div class="comment-form-rating">
+                                       <label for="rating">Your vote</label>
+                                       <!--
+                                       <div class="star ml-3">
+                                          <span><i class="ri-star-line"></i></span>
+                                          <span><i class="ri-star-line"></i></span>
+                                          <span><i class="ri-star-line"></i></span>
+                                          <span><i class="ri-star-line"></i></span>
+                                          <span><i class="ri-star-line"></i></span>
+                                       </div>
+                                       -->
+                                    </div>
+                                    <div class="col-md-12">
+                                       {{form.value}}
+                                       <br>
+                                   </div>
+                  
+                                    <label for="comment">
+                                       Your review
+                                    </label>
+                  
+                                    <span class="wpcf7-form-control-wrap your-message">
+                                       <textarea name="body" id="id_body" cols="40" rows="10" class="wpcf7-form-control wpcf7-textarea wpcf7-validates-as-required" aria-required="true" aria-invalid="false"></textarea>
+                                    </span>
+                  
+                                    <p class="form-submit">
+                                       <button name="submit" type="submit" id="submit"
+                                          class="btn btn-hover iq-button" value="Submit">
+                                          <span><i class="ri-play-fill"></i>Submit</span>
+                                       </button>
+                                    </p>
+                                 </form>
+                              </div>
+                           </div>
+                        </div>
+                        {% else %}
+                        <a href="{% url 'login' %}?next={{request.path}}">Please login to leave a review</a>
+                        {% endif %}
+                  
+                        </div>
+                  
+                        
+                        <div class="iq-widget-menu widget">
+                           <div class="list-inline iq-widget-menu">
+                              <ul class="iq-post">
+                               {% for review in project.review_set.all %}
+                               {% if review.body %}
+                                 <li>
+                                     <blockquote class="wp-block-quote">
+                                        <p>{{review.body|linebreaksbr}}</p>
+                                        <br>
+                                        <div class="iq-blog-meta">
+                                           <ul class="list-inline">
+                                              <li class="list-inline-item">
+                                                 <a href="{% url 'user-profile' review.owner.id  %}" class="iq-user"><i class="fa fa-user-o mr-1" aria-hidden="true"></i>
+                                                    {% if review.owner.name %}
+                                                    {{review.owner.name}}                                      
+                                                    {% else %}
+                                                    {{review.owner.username}}
+                                                    {% endif %}
+                                                 </a>
+                                                 {% if review.value == 'up' %}
+                                                 <span class="fa fa-heart" style="padding-left:5px;"></span>
+                                                 {% elif review.value == 'down' %}
+                                                 <span class="fa fa-thumbs-down" style="padding-left:5px;"></span>
+                                                 {% endif %}
+                                              </li>
+                                           </ul>
+                                        </div>
+                                     </blockquote>
+                                 </li>
+                                 {% endif %}
+                                 {% endfor %}
+                              </ul>
+                           </div>                           
+                        </div>
+                        <div class="clear"></div>
+                     </div>
+                  </div>
+
+                  <div id="sourse-1" class="tab-pane fade" role="tabpanel">
+                        <div class="source-list-content">
+                           <table class="movie-sources sources-table">
+                              <thead class="trending-pills">
+                                 <tr>
+                                    <th class="genres-table-heading">Links</th>
+                                    <th class="genres-table-heading">Quality</th>
+                                    <th class="genres-table-heading">Language</th>
+                                    <th class="genres-table-heading">Player</th>
+                                    <th class="genres-table-heading">Date Added</th>
+                                 </tr>
+                              </thead>
+                              <tbody class="trending-pills">
+                                 <tr>
+                                    <td>
+                                       <a href="movie-details.html"
+                                          class="play-source movie-play-source btn-hover iq-button"><i
+                                             class="ri-play-fill"></i>
+                                          Play Now
+                                       </a>
+                                    </td>
+                                    <td>1080p</td>
+                                    <td>english</td>
+                                    <td>MediaMonkey</td>
+                                    <td>2021-12-04</td>
+                                 </tr>
+                                 <tr>
+                                    <td>
+                                       <a href="movie-details.html"
+                                          class="play-source movie-play-source btn-hover iq-button"><i
+                                             class="ri-play-fill"></i>
+                                          Play Now
+                                       </a>
+                                    </td>
+                                    <td>800p</td>
+                                    <td>english</td>
+                                    <td>MusicBee</td>
+                                    <td>2021-12-02</td>
+                                 </tr>
+                                 <tr>
+                                    <td>
+                                       <a href="movie-details.html"
+                                          class="play-source movie-play-source btn-hover iq-button"><i
+                                             class="ri-play-fill"></i>
+                                          Play Now
+                                       </a>
+                                    </td>
+                                    <td>720p</td>
+                                    <td>english</td>
+                                    <td>PotPlayer</td>
+                                    <td>2021-11-28</td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+               </div>
+
+            </div>
+         </div>
+      </div>
+   </div>
+   
+
+</div>
+
+<script >
+   var WatchList = document.getElementsByClassName('ri-add-line');
+
+  //for each one of the WatchList elements add a event listener when its clicked
+  for(var i = 0; i < WatchList.length; i++){
+     WatchList[i].addEventListener('click', function(e){
+        e.preventDefault();
+        var project = this.getAttribute('value');
+        var url = '{% url "projects" %}';
+        var data = {
+           'project': project
+        };
+        $.ajax({
+           headers:{
+           'Accept': 'application/json',
+           'X-Requested-With': 'XMLHttpRequest', //Necessary to work with request.is_ajax()
+           'X-CSRFToken': '{{ csrf_token }}',
+           },
+           url: url,
+           type: 'POST',
+           data: JSON.stringify(data),
+        });
+     //then replace the inner content with a check mark
+     this.innerHTML = '<i class="ri-check-line"></i>';
+     //then change the class to nothing
+     this.className = '';
+     });
+  }
+</script>
+
+{% endblock %}
+

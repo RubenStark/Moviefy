@@ -1,0 +1,128 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<style>
+    .iq-card-body { padding: 15px; }    
+</style>
+
+{% if page == 'subscriptions' %}
+
+<div id="content" class="site-content">
+    <div class="iq-breadcrumb-one">
+        <div class="container-fluid">
+            <div class="row align-items-center justify-content-center text-center">
+                <div class="col-sm-12">
+                    <nav aria-label="breadcrumb" class="text-center iq-breadcrumb-two">
+                        <h2 class="title">YOUR <strong class="text-primary">SUBSCRIPTIONS</strong></h2>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="content" class="site-content">
+        <div class="site-content-contain">
+            <div id="content" class="site-content">
+                <div id="primary" class="content-area">
+                    <main id="main" class="site-main watchlist-contens php_prefix_datapass_archive" data-displaypost="12" data-options="load_more" data-pages="4">
+                        <div class="container-fluid ">
+                            <div class="row iq_archive_items iq-archive-person">
+                                {% for profile in subscribed %}
+                                <article id="post-28" class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6 iq-persons px-2 ">
+                                    <div class=" position-relative">
+                                        <div class="cast-images position-relative d-flex">
+                                            <a href="{% url 'user-profile' profile.id %}">
+                                                <img src="{{profile.imageURL}}" class="img-fluid" alt="image">
+                                            </a>
+                                        </div>
+                                        <div class="iq-card-body" style="background-color: rgb(24, 24, 24);"> <br>
+                                            {% if profile.name %}
+                                            <h4 class="card-title">{{profile.name}}</h4>
+                                            {% else %}
+                                            <h4 class="card-title">{{profile.username}}</h4>
+                                            {% endif %}
+                                            <p class="card-text">{{profile.short_intro|slice:"150"}}</p>
+                                            <!--Only allow 3 skills-->
+                                            {% for skill in profile.skill_set.all|slice:"3"%}
+                                            <span class="badge badge-primary">{{skill}}</span>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </article>	
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </main>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+{% else %}
+
+<div class="iq-breadcrumb-one  iq-bg-over iq-over-dark-50" style="background-image: url(../html/images/about-us/01.jpg);">  
+    <div class="container-fluid"> 
+        <div class="row align-items-center">
+            <div class="col-sm-12">
+                <nav aria-label="breadcrumb" class="text-center iq-breadcrumb-two">
+                    <h2 class="title">CONNECT WITH <strong class="text-primary">CREATORS</strong> FROM AROUND THE WORLD</h2>
+                </nav>
+                <form id="searchForm" action="{% url 'profiles' %}" method="get">
+                    <div class="form-group">
+                        <input class="text search-input" id="formInput#search" type="text" name="search_query" value="{{search_query}}" placeholder="Search">
+                     </div>
+                </form>
+            </div>
+        </div> 
+    </div>
+</div>
+
+<div id="content" class="site-content">
+    <div class="site-content-contain">
+        <div id="content" class="site-content">
+            <div id="primary" class="content-area">
+                <main id="main" class="site-main watchlist-contens php_prefix_datapass_archive" data-displaypost="12" data-options="load_more" data-pages="4">
+                    <div class="container-fluid ">
+                        <div class="row iq_archive_items iq-archive-person">
+                            {% for profile in profiles %}
+                            <article id="post-28" class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6 iq-persons px-2 ">
+                                <div class=" position-relative">
+                                    <div class="cast-images position-relative d-flex">
+                                        <a href="{% url 'user-profile' profile.id %}">
+                                            <img src="{{profile.imageURL}}" class="img-fluid" alt="image">
+                                        </a>
+                                    </div>
+                                    <div class="iq-card-body" style="background-color: rgb(24, 24, 24);"> <br>
+                                        {% if profile.name %}
+                                        <h4 class="card-title">{{profile.name}}</h4>
+                                        {% else %}
+                                        <h4 class="card-title">{{profile.username}}</h4>
+                                        {% endif %}
+                                        <p class="card-text">{{profile.short_intro|slice:"150"}}</p>
+                                        <!--Only allow 3 skills-->
+                                        {% for skill in profile.skill_set.all|slice:"3"%}
+                                        <span class="badge badge-primary">{{skill}}</span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </article>	
+                            {% endfor %}
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>        
+    </div>
+</div>
+
+<main id="main" class="site-main watchlist-contens php_prefix_datapass_archive" data-displaypost="12" data-options="load_more" data-pages="4">
+    {% include 'pagination.html' with queryset=profiles custom_range=custom_range %}
+</main>
+
+
+{% endif %}
+
+
+{% endblock content %}

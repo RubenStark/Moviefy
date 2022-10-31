@@ -1,0 +1,160 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+
+
+{% if page == 'register' %}
+
+<section class="sign-in-page">
+   <div class="container">
+      <div class="row justify-content-center align-items-center height-self-center">
+         <div class="col-lg-7 col-md-12 align-self-center">
+            <div class="sign-user_card ">                    
+               <div class="sign-in-page-data">
+                  <div class="sign-in-from w-100 m-auto">
+                     <h3 class="mb-3 text-center">Create a new account</h3>  
+                     <!-- Register -->
+                      <form method="POST" action="{% url 'register' %}" class="">
+                        {% csrf_token %}
+                        
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="form-group">
+                                 <input type="text" name="first_name" maxlength="150" class="form-control mb-0" id="id_first_name" placeholder="First Name" autofocus>
+                              </div>
+                           </div>
+
+                           <div class="col-md-6">
+                              <div class="form-group">
+
+                                 <input type="email" name="email" maxlength="254" class="form-control mb-0" id="id_email" placeholder="Email address">
+                              </div>
+                           </div>
+
+                           <div class="col-md-6">
+                              <div class="form-group">
+
+                                 <input type="text" name="username" maxlength="150" autofocus class="form-control mb-0" required id="id_username" placeholder="Username">
+                              </div>
+                           </div>
+
+                           <div class="col-md-6">
+                              <div class="form-group">
+
+                                 <input type="password" name="password1" autocomplete="new-password" class="form-control mb-0" required id="id_password1" placeholder="Password">
+                              </div>
+                           </div>
+
+                           <div class="col-md-6">
+                              <div class="form-group">
+
+                                 <input type="password" name="password2" autocomplete="new-password" class="form-control mb-0" required id="id_password2" placeholder="Password Confirmation">
+                              </div>
+                           </div>
+                               
+                       </div>
+                           
+                        <button type="submit" class="btn btn-hover my-2">Sign Up</button>
+                                                            
+                     </form>
+                  </div>
+               </div>    
+               <div class="mt-3">
+                  <div class="d-flex justify-content-center links">
+                     Already have an account? <a href="{% url 'login' %}" class="text-primary ml-2">Sign In</a>
+                  </div>                        
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+<div class="rtl-box">
+   <button type="button" class="btn btn-light rtl-btn">
+         <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 20 20" fill="white">
+         <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+         </svg>
+   </button>
+   <div class="rtl-panel">
+      <ul class="modes">
+         <li class="dir-btn" data-mode="rtl" data-active="false"   data-value="ltr"><a href="#">LTR</a></li>
+         <li class="dir-btn" data-mode="rtl" data-active="true"   data-value="rtl"><a href="#">RTL</a></li>
+      </ul>
+   </div>
+</div>
+<!-- MainContent End-->
+<div class="rtl-box">
+   <button type="button" class="btn btn-light rtl-btn">
+         <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 20 20" fill="white">
+         <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+         </svg>
+   </button>
+   <div class="rtl-panel">
+      <ul class="modes">
+         <li class="dir-btn"  data-mode="rtl" data-active="false" data-value="ltr"><a href="#">LTR</a></li>
+         <li class="dir-btn" data-mode="rtl" data-active="true"   data-value="rtl"><a href="#">RTL</a></li>
+      </ul>
+   </div>
+</div>
+
+{% else %}
+<!-- MainContent -->
+<section class="sign-in-page">
+    <div class="container">
+       <div class="row justify-content-center align-items-center height-self-center">
+          <div class="col-lg-5 col-md-12 align-self-center">
+             <div class="sign-user_card ">                    
+                <div class="sign-in-page-data">
+                   <div class="sign-in-from w-100 m-auto">
+                      <h3 class="mb-3 text-center">Sign in</h3>
+                      <form action="" method="POST" class="mt-4">
+                         <div class="form-group">     
+                           <!-- Input:Username -->    
+                           {% csrf_token %}                                         
+                           <input type="text" name="username" class="form-control mb-0" id="exampleInputEmail1" placeholder="Enter username" autocomplete="off" required autofocus>
+                         </div>
+                         <div class="form-group"> 
+                           <!-- Input:Password -->                 
+                           <input type="password" name="password" class="form-control mb-0" id="exampleInputPassword2" placeholder="Password" required>
+                         </div>
+                         
+                            <div class="sign-info">
+                               <button type="submit" class="btn btn-hover">Sign in</button>
+                               <div class="custom-control custom-checkbox d-inline-block">
+                                  <input type="checkbox" class="custom-control-input" id="customCheck">
+                                  <label class="custom-control-label" for="customCheck">Remember Me</label>
+                               </div>                                
+                            </div>                               
+                      </form>
+                   </div>
+                </div>
+                <div class="mt-3">
+                   <div class="d-flex justify-content-center links">
+                      Don't have an account? <a href="{% url 'register' %}" class="text-primary ml-2">Sign Up</a>
+                   </div>
+                   <div class="d-flex justify-content-center links">
+                      <a href="{% url 'reset_password' %}" class="f-link">Forgot your password?</a>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+ </section>
+ <!-- MainContent End-->
+ <div class="rtl-box">
+    <button type="button" class="btn btn-light rtl-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 20 20" fill="white">
+          <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+          </svg>
+    </button>
+    <div class="rtl-panel">
+       <ul class="modes">
+          <li class="dir-btn"  data-mode="rtl" data-active="false" data-value="ltr"><a href="#">LTR</a></li>
+          <li class="dir-btn" data-mode="rtl" data-active="true"   data-value="rtl"><a href="#">RTL</a></li>
+       </ul>
+    </div>
+ </div>
+
+{% endif %}
+{% endblock content %}

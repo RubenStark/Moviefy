@@ -1,0 +1,111 @@
+{% load static %}
+<section id="iq-trending" class="s-margin">
+   <div class="container-fluid">
+      <div class="row">
+         <div class="col-sm-12 overflow-hidden">
+            <div class="iq-main-header d-flex align-items-center justify-content-between">
+               <h4 class="main-title">Trending</h4>
+            </div>
+            <div class="trending-contens">
+               <ul id="trending-slider-nav" class="list-inline p-0 mb-0 row align-items-center iq-rtl-direction">
+                  {% for project in trending %}
+                  <li>
+                     <a href="javascript:void(0);">
+                        <div class="movie-slick position-relative">
+                           <img src="{{project.imageURL}}" class="img-fluid" alt="">
+                        </div>
+                     </a>
+                  </li>
+                  {% endfor %}
+               </ul>
+               <ul id="trending-slider" class="list-inline p-0 m-0  d-flex align-items-center iq-rtl-direction">
+                  {% for project in trending %}
+                  <li>
+                     <div class="tranding-block position-relative"
+                        style="background-image: url(images/trending/01.jpg);">
+                        <div class="trending-custom-tab">
+                           <div class="tab-title-info position-relative iq-ltr-direction">
+                              <ul class="trending-pills d-flex nav nav-pills justify-content-center align-items-center text-center iq-ltr-direction"
+                                 role="tablist">
+                                 <li class="nav-item">
+                                    <a class="nav-link active show" data-toggle="pill" href="#trending-data1" role="tab"
+                                       aria-selected="true">Overview</a>
+                                 </li>
+                              </ul>
+                           </div>
+                           <div class="trending-content">
+                              <div id="trending-data1" class="overlay-tab tab-pane fade active show ">
+                                 <div class="trending-info align-items-center w-100 animated fadeInUp iq-ltr-direction">
+                                    <a href="javascript:void(0);" tabindex="0">
+                                       <div class="res-logo">
+                                          <div class="channel-logo">
+                                             <img src="{% static 'images/logo.png' %}" class="c-logo" alt="streamit">
+                                          </div>
+                                       </div>
+                                    </a>
+                                    <h1 class="trending-text big-title text-uppercase">{{project.title}}</h1>
+
+                                    <div class="d-flex align-items-center text-white text-detail">
+                                       <span class="badge badge-secondary p-3">{{project.movie_restriction}}</span>
+                                       <span class="ml-3">{{project.duration}}</span>
+                                       <span class="trending-year">{{project.created|date:"F Y"}}</span>
+                                    </div>
+                                    <div class="d-flex align-items-center series mb-4">
+                                       <a href="javascript:void(0);"><img
+                                             src="{% static 'images/trending/trending-label.png' %}" class="img-fluid"
+                                             alt=""></a>
+                                       <span class="text-gold ml-3">
+                                          <!--check the number of project in the list -->
+
+                                          # {{ project.count }} in Trending Today
+
+                                       </span>
+                                    </div>
+                                    <p class="trending-dec">{{project.description}}
+                                    </p>
+                                    <div class="p-btns">
+                                       <div class="d-flex align-items-center p-0">
+                                          {% if project.seasonal %}
+                                          <a href="{% url 'serieDetails' project.id %}" class="btn btn-hover mr-2"
+                                             tabindex="0"><i class="fa fa-play mr-2" aria-hidden="true"></i>Play Now</a>
+                                          {% else %}
+                                          <a href="{% url 'project' project.id %}" class="btn btn-hover mr-2"
+                                             tabindex="0"><i class="fa fa-play mr-2" aria-hidden="true"></i>Play Now</a>
+                                          {% endif %}
+                                          <a href="javascript:void(0);" value="{{project.id}}" class="btn btn-link"
+                                             tabindex="0"><i class="ri-add-line"></i>
+                                             My List
+                                          </a>
+
+                                       </div>
+                                    </div>
+                                    <div class="trending-list mt-4">
+                                       <!--
+                                        <div class="text-primary title">Starring: <span class="text-body">Wagner
+                                           Moura, Boyd Holbrook, Joanna</span>
+                                        </div>
+                                        -->
+                                       <div class="text-primary title">Genre: <span class="text-body">
+                                             {{project.genre}}
+                                          </span>
+                                       </div>
+                                       <div class="text-primary title">This Is: <span class="text-body">
+                                             {% for tag in project.tags.all %}
+                                             {{tag}}
+                                             {% endfor %}
+                                          </span>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </li>
+                  {% endfor %}
+               </ul>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>

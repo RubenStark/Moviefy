@@ -1,0 +1,133 @@
+{% extends 'main.html' %}
+{% block content %}
+
+<style>
+
+.content-box-ui {
+    width: 95%;
+    max-width: 85rem;
+    margin: 0 auto;
+}
+
+.formPage .formWrapper-ui {
+    list-style: none;
+    background: var(--color-white);
+    padding: 3.5rem 20rem;
+    border: 2px solid var(--color-light);
+    border-radius: 0.7rem;
+}
+.backButton-ui {
+    background: gray;
+    color: white;
+    width: 4rem;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.form-ui {
+    display: block;
+}
+
+.form__field {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.form__label, .form__field > label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--color-text);
+}
+
+.btn-ui {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    background-color: var(--color-light);
+    font-weight: var(--font-medium);
+    color: var(--color-sub);
+    text-decoration: none;
+    padding: 1rem 2rem;
+    border-radius: 0.5rem;
+    border: none;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+    font-size: 1.6rem;
+    outline-width: 0;
+    outline-color: transparent;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn--sub-ui {
+    background-color: red;
+    color: white;
+}
+
+input[type="file" i] {
+    appearance: none;
+    background-color: initial;
+    cursor: default;
+    align-items: baseline;
+    color: inherit;
+    text-overflow: ellipsis;
+    white-space: pre;
+    text-align: start !important;
+    padding: initial;
+    border: initial;
+    overflow: hidden !important;
+}
+
+.btn--lg {
+    font-size: 1.8rem;
+    padding: 1.2rem 4.5rem;
+}
+.my-md {
+    margin: 3rem auto;
+}
+
+</style>
+
+<!-- Main Section -->
+<div class="body-ui">
+<main class="formPage my-xl">
+    <div class="content-box-ui">
+        <div class="formWrapper-ui">
+            <form class="form-ui" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                {% for field in form %}
+                <!-- Input:Text -->
+                <div class="form__field">
+                    <label for="formInput#text">{{field.label}}</label>
+                    {{field}}
+                </div>
+                {% endfor %}
+
+                <div class="form__field">
+                    {% for tag in project.tags.all %}
+                    <div class="project-tag tag tag--pill tag--main" data-tag="{{tag.id}}"
+                        data-project="{{project.id}}">{{tag.name}} &#215;</div>
+                    {% endfor %}
+                </div>
+
+                <div class="form__field">
+                    <label for="formInput#text">Tags</label>
+                    <textarea class="input" name="newtags" placeholder="Add tags here..."></textarea>
+                </div>
+                <input class="btn-ui btn--sub-ui btn--lg  my-md" type="submit" value="Submit" />
+            </form>
+        </div>
+    </div>
+</main>
+</div>
+
+{% endblock %}

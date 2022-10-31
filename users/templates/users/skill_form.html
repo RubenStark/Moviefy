@@ -1,0 +1,44 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+
+<section class="m-profile setting-wrapper">        
+    <div class="container">
+        <h4 class="main-title mb-4">Account</h4>
+        <div class="row">
+            <div class="col-lg-4 mb-3">
+                <div class="sign-user_card text-center">
+
+                    <h4 class="mb-3">Create Your Skills Here</h4>
+
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <form class="form" method="POST" action="">
+                    {% csrf_token %}
+                <div class="sign-user_card">
+
+                    <h5 class="mb-3 pb-3 a-border">Add Skill</h5>
+                    <div class="row align-items-center justify-content-between mb-3">
+
+                        {% for field in form %}
+                        <div class="col-md-8">
+                            <span class="text-light font-size-13">{{field.label}}</span>
+                            <p class="mb-0">{{field}}</p>
+                        </div>
+                        {% endfor %}
+
+                    </div>
+                    
+                    <input class="btn btn-hover" type="submit" value="Create Skill" />
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+{% endblock %}

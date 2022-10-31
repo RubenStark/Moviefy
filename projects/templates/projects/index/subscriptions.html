@@ -1,0 +1,76 @@
+{% if subscriptions %}
+
+<section id="iq-favorites">
+    <div class="container-fluid">
+       <div class="row">
+          <div class="col-sm-12 overflow-hidden">
+             <div class="iq-main-header d-flex align-items-center justify-content-between">
+                <h4 class="main-title">Your Subscriptions</h4>
+                <!--redirect to users subscriptions-->
+                <a class="iq-view-all" href="{% url 'subscriptions' %}">View All</a>                   
+             </div>
+             <div class="favorites-contens">
+                <ul class="favorites-slider list-inline  row p-0 mb-0 iq-rtl-direction">
+                   {% for project in subscriptions %}
+                   <li class="slide-item" id="movie-content">
+                      <div class="block-images position-relative">
+                         <div class="img-box">
+                            <img src="{{project.imageURL}}" class="img-fluid" alt="movie-image">
+                            </div>
+                            <!-- descriptrion -->
+                            <div class="block-description transparent">
+                               <h6 class="iq-title">
+                                 {% if project.seasonal %}
+                                 <a href="{% url 'serieDetails' project.id %}">{{serie.title}}</a>
+                                 {% else %}
+                                 <a href="{% url 'projectDetails' project.id %}">{{project.title}}</a>
+                                 {% endif %}
+                               </h6>
+                               <div class="movie-time d-flex align-items-center my-2 iq-ltr-direction">
+                                  <div class="badge badge-secondary p-1 mr-2">{{project.movie_restriction}}</div>
+                                  <span class="text-white"> 
+                                     {{project.duration}}                                    
+                                     
+                                  </span>
+                               </div>
+                               <div class="hover-buttons">
+                                 {% if project.seasonal %}
+                                 <a href="{% url 'serieDetails' project.id %}">{{serie.title}}</a>
+                                 {% else %}
+                                 <a href="{% url 'project' project.id %}" role="button" class="btn btn-hover iq-button">>
+                                 {% endif %}
+                                  <i class="fa fa-play mr-1" aria-hidden="true"></i>
+                                  Play Now
+                                  </a>
+                                  <br><br>
+                                  <h6 class="iq-title">By <a href="{% url 'user-profile' project.owner.id %}">{{project.owner.username}}</a></h6><br>
+                               </div>
+                            </div>
+                            <div class="block-social-info">
+                               <ul class="list-inline p-0 m-0 music-play-lists">
+                                  <li class="share">
+                                     <span><i class="ri-share-fill"></i></span>
+                                     <div class="share-box">
+                                        <div class="d-flex align-items-center">
+                                           <a href="https://www.facebook.com/sharer?u=https://iqonic.design/wp-themes/streamit_wp/movie/shadow/" target="_blank" rel="noopener noreferrer" class="share-ico" tabindex="0"><i class="ri-facebook-fill"></i></a>
+                                           <a href="https://twitter.com/intent/tweet?text=Currentlyreading" target="_blank" rel="noopener noreferrer" class="share-ico" tabindex="0"><i class="ri-twitter-fill"></i></a>
+                                           <a href="#" data-link="https://iqonic.design/wp-themes/streamit_wp/movie/shadow/" class="share-ico iq-copy-link" tabindex="0"><i class="ri-links-fill"></i></a>
+                                        </div>
+                                     </div>
+                                  </li>
+                                  <li>
+                                     <span><i class="ri-heart-fill"></i></span>
+                                     <span class="count-box">19+</span>
+                                  </li>
+                                     <li><span><i value="{{project.id}}" class="ri-add-line"></i></span></li>
+                               </ul>
+                            </div>
+                         </div>
+                   </li>
+                   {% endfor %}   
+             </div>
+          </div>
+       </div>
+    </div>
+ </section>
+{% endif %}
