@@ -1,1 +1,1 @@
-web: gunicorn moviefy.wsgi --log-file -
+gunicorn moviefy.wsgi:application
