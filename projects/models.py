@@ -1,6 +1,3 @@
-from calendar import c
-from optparse import Option
-from tkinter.ttk import Progressbar
 from turtle import title
 from django.db import models
 import uuid
