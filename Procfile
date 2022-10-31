@@ -1,1 +1,1 @@
-web: gunicorn moviefy.wsgi
+web: gunicorn 'moviefy.wsgi'
