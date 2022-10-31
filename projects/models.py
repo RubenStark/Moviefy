@@ -1,4 +1,3 @@
-from turtle import title
 from django.db import models
 import uuid
 from django.db.models.deletion import CASCADE
