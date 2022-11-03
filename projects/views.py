@@ -99,12 +99,14 @@ def projects(request):
         list             = []
         subscriptions    = []
     
+    series = Project.objects.filter(seasonal=True)
+    
     
     context = {
         'projects': projects, 'toptens': toptens, 'topviews': topviews, 'topfirst': topfirst,
         'topsecond': topsecond, 'trending': trending , 'watched_projects': watched_projects,
         'genres': genres, 'similar_projects': similar_projects, 'watched_progress': watched_progress,
-        'list': list, 'subscriptions': subscriptions,
+        'list': list, 'subscriptions': subscriptions, 'series': series
         }
 
     
